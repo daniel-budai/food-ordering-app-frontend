@@ -1,5 +1,6 @@
-import LoadingButton from "@/components/LoadingButton";
-import { Button } from "@/components/ui/button";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
@@ -10,12 +11,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import LoadingButton from "@/components/LoadingButton";
+import { Button } from "@/components/ui/button";
 
 const formSchema = z.object({
-  email: z.string().optional(), //read only
+  email: z.string().optional(),
   name: z.string().min(1, "Name is required"),
   adressLine1: z.string().min(1, "Adress is required"),
   city: z.string().min(1, "City is required"),
@@ -25,11 +25,11 @@ const formSchema = z.object({
 type UserFormData = z.infer<typeof formSchema>;
 
 type Props = {
-  onSave(userProfileData: UserFormData): void;
+  onSave: (userProfileData: UserFormData) => void;
   isLoading: boolean;
 };
 
-export const UserProfileForm = ({ isLoading, onSave }: Props) => {
+const UserProfileForm = ({ onSave, isLoading }: Props) => {
   const form = useForm<UserFormData>({
     resolver: zodResolver(formSchema),
   });
@@ -127,3 +127,5 @@ export const UserProfileForm = ({ isLoading, onSave }: Props) => {
     </Form>
   );
 };
+
+export default UserProfileForm;
