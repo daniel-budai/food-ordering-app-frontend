@@ -27,11 +27,46 @@ export const useCreateMyUser = () => {
     }
   };
 
-  const {
-    mutateAsync: createUser,
-    isLoading,
-    isError,
-    isSuccess,
-  } = useMutation(createMyUserRequest);
-  return { createUser, isLoading, isError, isSuccess };
+  const { mutateAsync: createUser, isLoading } =
+    useMutation(createMyUserRequest);
+  return { createUser, isLoading };
+};
+
+type UpdateMyUserRequest = {
+  name: string;
+  addressLine1: string;
+  city: string;
+  country: string;
+};
+
+export const useUpdateMyUser = () => {
+  const { getAccessTokenSilently } = useAuth0();
+
+  const updateMyUserRequest = async (formData: UpdateMyUserRequest) => {
+    console.log("Starting updateMyUserRequest with formData:", formData);
+    const accessToken = await getAccessTokenSilently();
+    console.log("AccessToken retrieved:", accessToken);
+    const response = await fetch(`${API_BASE_URL}/api/my/user`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      console.error("Failed to update user, response:", response);
+      throw new Error("Failed to update user");
+    }
+
+    const result = await response.json();
+    console.log("User updated successfully, result:", result);
+    return result;
+  };
+
+  const { mutateAsync: updateUser, isLoading } =
+    useMutation(updateMyUserRequest);
+
+  return { updateUser, isLoading };
 };

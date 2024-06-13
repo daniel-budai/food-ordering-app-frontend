@@ -17,7 +17,7 @@ import { Button } from "@/components/ui/button";
 const formSchema = z.object({
   email: z.string().optional(),
   name: z.string().min(1, "Name is required"),
-  adressLine1: z.string().min(1, "Adress is required"),
+  addressLine1: z.string().min(1, "Adress is required"),
   city: z.string().min(1, "City is required"),
   country: z.string().min(1, "Country is required"),
 });
@@ -35,7 +35,7 @@ const UserProfileForm = ({ onSave, isLoading }: Props) => {
     defaultValues: {
       email: "",
       name: "",
-      adressLine1: "",
+      addressLine1: "",
       city: "",
       country: "",
     },
@@ -83,7 +83,7 @@ const UserProfileForm = ({ onSave, isLoading }: Props) => {
         <div className="flex flex-col md:flex-row gap-4">
           <FormField
             control={form.control}
-            name="adressLine1"
+            name="addressLine1"
             render={({ field }) => (
               <FormItem className="flex-1">
                 <FormLabel>Adress</FormLabel>
