@@ -32,6 +32,13 @@ type Props = {
 const UserProfileForm = ({ onSave, isLoading }: Props) => {
   const form = useForm<UserFormData>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      name: "",
+      adressLine1: "",
+      city: "",
+      country: "",
+    },
   });
 
   return (
