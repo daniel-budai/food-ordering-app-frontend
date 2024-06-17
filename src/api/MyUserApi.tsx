@@ -1,5 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useMutation } from "react-query";
+import { toast } from "sonner";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -46,6 +47,7 @@ export const useUpdateMyUser = () => {
     console.log("Starting updateMyUserRequest with formData:", formData);
     const accessToken = await getAccessTokenSilently();
     console.log("AccessToken retrieved:", accessToken);
+
     const response = await fetch(`${API_BASE_URL}/api/my/user`, {
       method: "PUT",
       headers: {
@@ -65,8 +67,24 @@ export const useUpdateMyUser = () => {
     return result;
   };
 
-  const { mutateAsync: updateUser, isLoading } =
-    useMutation(updateMyUserRequest);
+  const {
+    mutateAsync: updateUser,
+    isLoading,
+    isSuccess,
+    error,
+    reset,
+  } = useMutation(updateMyUserRequest);
+
+  if (isSuccess) {
+    toast.success("User updated successfully");
+  }
+
+  if (error) {
+    toast.error(error.toString());
+    reset();
+  }
+
+  console.log({ isLoading, isSuccess, error });
 
   return { updateUser, isLoading };
 };
