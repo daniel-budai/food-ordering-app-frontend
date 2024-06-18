@@ -76,10 +76,7 @@ export const useUpdateMyUser = () => {
   const { getAccessTokenSilently } = useAuth0();
 
   const updateMyUserRequest = async (formData: UpdateMyUserRequest) => {
-    console.log("Starting updateMyUserRequest with formData:", formData);
     const accessToken = await getAccessTokenSilently();
-    console.log("AccessToken retrieved:", accessToken);
-
     const response = await fetch(`${API_BASE_URL}/api/my/user`, {
       method: "PUT",
       headers: {
@@ -90,12 +87,10 @@ export const useUpdateMyUser = () => {
     });
 
     if (!response.ok) {
-      console.error("Failed to update user, response:", response);
       throw new Error("Failed to update user");
     }
 
     const result = await response.json();
-    console.log("User updated successfully, result:", result);
     return result;
   };
 
