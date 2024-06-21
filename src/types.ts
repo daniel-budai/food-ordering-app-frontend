@@ -1,3 +1,5 @@
+import exp from "constants";
+
 export type User = {
   _id?: string;
   email?: string;
@@ -25,4 +27,13 @@ export type Restaurant = {
   menuItems: MenuItem[];
   imageUrl: string;
   lastUpdated: string;
+};
+
+export type RestaurantSearchResonse = {
+  data: Restaurant[];
+  pagination: {
+    total: number;
+    page: number;
+    pages: number;
+  };
 };
