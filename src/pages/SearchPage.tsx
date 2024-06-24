@@ -17,13 +17,14 @@ const SearchPage = () => {
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[250_1fr] gap-5">
+    <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">
       <div id="cuisines-list">insert cuisines list here</div>
-      <div id="main-content" className="flex flex-col gap-5"></div>
-      <SearchResultsInfo total={results.pagination.total} city={city} />
-      {results.data.map((restaurant) => (
-        <SearchResultsCard restaurant={restaurant} />
-      ))}
+      <div id="main-content" className="flex flex-col gap-5">
+        <SearchResultsInfo total={results.pagination.total} city={city} />
+        {results.data.map((restaurant) => (
+          <SearchResultsCard restaurant={restaurant} />
+        ))}
+      </div>
     </div>
   );
 };
