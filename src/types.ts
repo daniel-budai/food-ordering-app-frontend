@@ -27,7 +27,7 @@ export type Restaurant = {
   lastUpdated: string;
 };
 
-export type RestaurantSearchResonse = {
+export type RestaurantSearchResponse = {
   data: Restaurant[];
   pagination: {
     total: number;

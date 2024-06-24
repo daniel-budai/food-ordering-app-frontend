@@ -25,7 +25,7 @@ const SearchPage = () => {
 
   const { results, isLoading } = useSearchRestaurants(searchState, city);
 
-  const setSelectedCuisine = (selectedCuisine: string[]) => {
+  const setSelectedCuisines = (selectedCuisine: string[]) => {
     setSearchState((prevState) => ({
       ...prevState,
       selectedCuisine,
@@ -69,7 +69,7 @@ const SearchPage = () => {
       <div id="cuisines-list">
         <CuisineFilter
           selectedCuisines={searchState.selectedCuisine}
-          onChange={setSelectedCuisine}
+          onChange={setSelectedCuisines}
           isExpanded={isExpanded}
           onExpandedClick={() =>
             setIsExpanded((prevIsExpanded) => !prevIsExpanded)

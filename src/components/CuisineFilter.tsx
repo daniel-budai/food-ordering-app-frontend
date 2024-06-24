@@ -5,50 +5,43 @@ import { ChangeEvent } from "react";
 import { Button } from "./ui/button";
 
 type Props = {
-  onChange: (cuisine: string[]) => void;
+  onChange: (cuisines: string[]) => void;
   selectedCuisines: string[];
   isExpanded: boolean;
   onExpandedClick: () => void;
 };
+
 const CuisineFilter = ({
   onChange,
   selectedCuisines,
   isExpanded,
   onExpandedClick,
 }: Props) => {
-  console.log("CuisineFilter component rendered");
-
   const handleCuisinesChange = (event: ChangeEvent<HTMLInputElement>) => {
     const clickedCuisine = event.target.value;
-    const isCheck = event.target.checked;
+    const isChecked = event.target.checked;
 
-    console.log(`Cuisine: ${clickedCuisine}, Checked: ${isCheck}`);
-
-    const newCuisinesList = isCheck
+    const newCuisinesList = isChecked
       ? [...selectedCuisines, clickedCuisine]
       : selectedCuisines.filter((cuisine) => cuisine !== clickedCuisine);
-
-    console.log("New cuisines list:", newCuisinesList);
 
     onChange(newCuisinesList);
   };
 
   const handleCuisinesReset = () => onChange([]);
-  console.log("handleCuisinesReset called");
-
-  console.log("isExpanded state:", isExpanded);
 
   return (
     <>
       <div className="flex justify-between items-center px-2">
-        <div className="text-md font-semibold mb-2">Filter by cuisine</div>
+        <div className="text-md font-semibold mb-2">Filter By Cuisine</div>
         <div
           onClick={handleCuisinesReset}
           className="text-sm font-semibold mb-2 underline cursor-pointer text-blue-500"
         >
-          Reset filters
+          Reset Filters
         </div>
       </div>
+
       <div className="space-y-2 flex flex-col">
         {cuisineList
           .slice(0, isExpanded ? cuisineList.length : 7)
@@ -78,19 +71,23 @@ const CuisineFilter = ({
               </div>
             );
           })}
-      </div>
 
-      <Button onClick={onExpandedClick} variant="link" className="mt-4 flex-1">
-        {isExpanded ? (
-          <span className="flex flex-row items-center">
-            View Less <ChevronUp />
-          </span>
-        ) : (
-          <span className="flex flex-row items-center">
-            View More <ChevronDown />
-          </span>
-        )}
-      </Button>
+        <Button
+          onClick={onExpandedClick}
+          variant="link"
+          className="mt-4 flex-1"
+        >
+          {isExpanded ? (
+            <span className="flex flex-row items-center">
+              View Less <ChevronUp />
+            </span>
+          ) : (
+            <span className="flex flex-row items-center">
+              View More <ChevronDown />
+            </span>
+          )}
+        </Button>
+      </div>
     </>
   );
 };
