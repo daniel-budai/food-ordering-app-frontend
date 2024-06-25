@@ -7,7 +7,6 @@ import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { MenuItem as MenuItemType } from "./../types";
-import { set } from "react-hook-form";
 
 export type CartItem = {
   _id: string;
@@ -52,6 +51,17 @@ const DetailPage = () => {
     });
   };
 
+  const removeFromCart = (cartItem: CartItem) => {
+    setCartItems((prevCartItems) => {
+      const updatedCartItems = prevCartItems.filter(
+        (item) => cartItem._id !== item._id
+      );
+
+      return updatedCartItems;
+    });
+  };
+
+  // Correct placement for loading or no restaurant data handling
   if (isLoading || !restaurant) {
     return <div>Loading...</div>;
   }
@@ -77,7 +87,11 @@ const DetailPage = () => {
         </div>
         <div>
           <Card>
-            <OrderSummary restaurant={restaurant} cartItems={cartItems} />
+            <OrderSummary
+              restaurant={restaurant}
+              cartItems={cartItems}
+              removeFromCart={removeFromCart}
+            />
           </Card>
         </div>
       </div>
