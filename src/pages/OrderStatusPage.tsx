@@ -14,7 +14,7 @@ const OrderStatusPage = () => {
   return (
     <div className="space-y-10">
       {orders.map((order) => (
-        <div className="space-y-10 bg-gray-200 p-10 rounded-lg">
+        <div className="space-y-10 bg-gray-100 p-10 rounded-lg">
           <OrderStatusHeader order={order} />
         </div>
       ))}
